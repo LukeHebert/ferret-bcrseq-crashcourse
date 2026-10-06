@@ -89,16 +89,3 @@ python workflows/bcrseq_transcript/gupta_cluster.py \
 The final `_clustered.tsv` adds `ClusterID`. The `clustering/` directory
 contains the selected threshold, a log, and a distance-to-nearest diagnostic
 plot. Interpret cluster IDs only within this small demonstration sample.
-
-## Instructor setup
-
-Push this repository to GitHub, then mark it as a **template repository** in
-its GitHub settings. After confirming a Codespace build succeeds, configure a
-prebuild for `main` using `.devcontainer/devcontainer.json`; this makes student
-creation faster but incurs Codespaces storage/compute usage. Students need
-GitHub accounts with Codespaces access.
-
-## Attribution
-
-The workshop adapts the BCR transcript scripts under the repository's MIT
-license. See `LICENSE` for the original copyright notice.
