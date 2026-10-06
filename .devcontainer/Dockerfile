@@ -3,7 +3,11 @@ FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 USER root
 
 ARG IGBLAST_VERSION=1.21.0
-RUN apt-get update \
+# The development base image includes a Yarn APT source.  This workshop does
+# not use Yarn, and its rotating signing key can make unrelated APT installs
+# fail in Codespaces, so remove only that source before updating package lists.
+RUN grep -rl 'dl.yarnpkg.com' /etc/apt/sources.list /etc/apt/sources.list.d 2>/dev/null | xargs -r rm -f \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
