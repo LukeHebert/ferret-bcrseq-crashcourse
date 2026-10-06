@@ -1,0 +1,19 @@
+{
+  "accession": "SRR33336518",
+  "source_export": "fasterq-dump --split-files SRR33336518",
+  "source_pairs": 581371,
+  "selected_pairs": 5000,
+  "sampling": "uniform sample without replacement, retained in source order",
+  "header_normalization": "SRA spot headers were suffixed with /1 and /2 for PEAR compatibility",
+  "seed": 33336518,
+  "files": {
+    "ferret_demo_R1.fastq.gz": {
+      "sha256": "ed3908dc7c11aee9603847fed44827c2fcf718c9d54d806c493ecc7d32a40bf1",
+      "bytes": 769208
+    },
+    "ferret_demo_R2.fastq.gz": {
+      "sha256": "e81c03d9cd626298a06256ad261e064b907997c7b2739de6c151f3714e7f0c03",
+      "bytes": 1032291
+    }
+  }
+}

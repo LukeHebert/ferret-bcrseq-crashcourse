@@ -1,0 +1,31 @@
+# Python virtual environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.python_packages/
+.python_packages_*/
+.matplotlib-cache/
+.cache/
+
+# Generic local-only working areas
+scratch/
+private/
+data_local/
+reference_local/
+notebooks_local/
+local_outputs/
+
+# Full SRA downloads and generated crashcourse outputs
+SRR*.fastq
+SRR*.fastq.gz
+data/ferret_demo/trim_merge/
+data/ferret_demo/identify_genes/
+data/ferret_demo/filter_collapse/
+data/ferret_demo/clustering/
+data/ferret_demo/*.assembled.fastq
+data/ferret_demo/*_IgBLAST.tsv
+data/ferret_demo/*_filtered.tsv
+data/ferret_demo/*_clustered.tsv
