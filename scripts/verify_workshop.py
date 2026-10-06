@@ -49,7 +49,7 @@ def pair_key(header: str, mate: str) -> str:
 def check_environment() -> None:
     for module in ("Bio", "pandas", "numpy", "scipy", "matplotlib"):
         importlib.import_module(module)
-    for command in ("fastqc", "pear", "cutadapt"):
+    for command in ("fastqc", "vsearch", "cutadapt"):
         assert shutil.which(command), f"Missing executable on PATH: {command}"
     home = Path(os.environ.get("IGBLAST_HOME", "/opt/ncbi-igblast-1.21.0"))
     igblastn = home / "bin" / "igblastn"

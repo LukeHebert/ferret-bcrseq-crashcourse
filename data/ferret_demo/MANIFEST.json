@@ -4,7 +4,7 @@
   "source_pairs": 581371,
   "selected_pairs": 5000,
   "sampling": "uniform sample without replacement, retained in source order",
-  "header_normalization": "SRA spot headers were suffixed with /1 and /2 for PEAR compatibility",
+  "header_normalization": "SRA spot headers were suffixed with /1 and /2 for standard paired-read compatibility",
   "seed": 33336518,
   "files": {
     "ferret_demo_R1.fastq.gz": {

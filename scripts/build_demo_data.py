@@ -106,7 +106,7 @@ def main() -> None:
         "source_pairs": total,
         "selected_pairs": args.pairs,
         "sampling": "uniform sample without replacement, retained in source order",
-        "header_normalization": "SRA spot headers were suffixed with /1 and /2 for PEAR compatibility",
+        "header_normalization": "SRA spot headers were suffixed with /1 and /2 for standard paired-read compatibility",
         "seed": args.seed,
         "files": {
             output_r1.name: {"sha256": digest(output_r1), "bytes": output_r1.stat().st_size},

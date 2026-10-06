@@ -13,7 +13,7 @@ RUN grep -rl 'dl.yarnpkg.com' /etc/apt/sources.list /etc/apt/sources.list.d 2>/d
         curl \
         default-jre-headless \
         fastqc \
-        pear \
+        vsearch \
     && rm -rf /var/lib/apt/lists/*
 
 # Pin IgBLAST so every Codespace starts from the same executable and baseline

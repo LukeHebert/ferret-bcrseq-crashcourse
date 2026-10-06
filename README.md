@@ -17,16 +17,21 @@ not a biologically representative dataset.
    make verify
    ```
 
-The environment contains FastQC, PEAR, cutadapt, Java, Python packages, and
+The environment contains FastQC, VSEARCH, cutadapt, Java, Python packages, and
 IgBLAST 1.21.0 with the workshop's ferret reference overlay. You do not need
 to install software on your own computer.
+
+This public template uses VSEARCH for paired-read merging. PEAR is not bundled:
+its academic download terms require registration and restrict redistribution and
+pipeline integration. VSEARCH creates the same assembled-FASTQ handoff used by
+the rest of this workshop; merger-specific output counts may differ from PEAR.
 
 ## What is in the demo data?
 
 `data/ferret_demo/ferret_demo_R1.fastq.gz` and `_R2.fastq.gz` are a seeded,
 uniform 5,000-pair selection from public SRA run `SRR33336518`. Its source
 export had identical mate headers, so the teaching files append standard `/1`
-and `/2` suffixes for PEAR compatibility. The pair count, seed, source export
+and `/2` suffixes for conventional paired-read compatibility. The pair count, seed, source export
 command, and checksums are recorded in
 `data/ferret_demo/MANIFEST.json`.
 
@@ -52,8 +57,8 @@ python workflows/bcrseq_transcript/trim_merge.py \
   --threads 2
 ```
 
-Inspect `data/ferret_demo/trim_merge/` for FastQC reports, PEAR logs, and
-unassembled reads. The main output is `data/ferret_demo/ferret_demo.assembled.fastq`.
+Inspect `data/ferret_demo/trim_merge/` for FastQC reports and the VSEARCH merge
+log. The main output is `data/ferret_demo/ferret_demo.assembled.fastq`.
 
 ### 2. Annotate assembled reads with IgBLAST
 

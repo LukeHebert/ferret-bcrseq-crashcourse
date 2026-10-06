@@ -30,10 +30,10 @@ def parse_arguments():
     parser.add_argument('--notrim', action='store_true', 
                         help='If set, skips the adapter & quality score trimming step before merging paired reads.')
     parser.add_argument('--threads', type=int, default=min(os.cpu_count() or 1, 2),
-                        help='Worker threads for cutadapt and PEAR (default: 2 or available CPUs).')
+                        help='Worker threads for cutadapt and VSEARCH (default: 2 or available CPUs).')
     parser.add_argument('--fastqc', default='fastqc', help='FastQC executable or PATH name.')
     parser.add_argument('--cutadapt', default='cutadapt', help='cutadapt executable or PATH name.')
-    parser.add_argument('--pear', default='pear', help='PEAR executable or PATH name.')
+    parser.add_argument('--vsearch', default='vsearch', help='VSEARCH executable or PATH name.')
     return parser.parse_args()
 
 def resolve_executable(value):
@@ -64,26 +64,23 @@ def call_cutadapt(r1, r2, output_dir, log_pathway, cutadapt, threads):
     quality_cutoff = '20'  # Quality score cutoff for 3' ends
     trimmed_r1 = os.path.join(output_dir, os.path.basename(r1).replace('.fastq.gz', '_trimmed.fastq.gz'))
     trimmed_r2 = os.path.join(output_dir, os.path.basename(r2).replace('.fastq.gz', '_trimmed.fastq.gz'))
-    # A minimum length of 50 prevents PEAR from receiving empty reads.  Use
+    # A minimum length of 50 prevents the merger from receiving empty reads. Use
     # pair-filter=any so a pair is removed when either mate falls below that
-    # limit; PEAR requires two non-empty synchronized mate files.
+    # limit; merging requires two non-empty synchronized mate files.
     command = [cutadapt, '-q', quality_cutoff, '-a', adapter1, '-A', adapter2,
                '-o', trimmed_r1, '-p', trimmed_r2, r1, r2, '-m', '50',
                '--pair-filter=any', '-j', str(threads)]
     run_logged(command, log_pathway)
     return trimmed_r1, trimmed_r2, subprocess.list2cmdline(command)
 
-def call_pear(r1, r2, output_dir, log_pathway, pear, threads):
-    """ Calls PEAR read merger to find forward-reverse read couples based on
-    overlapping sequence ends """
-    
+def call_vsearch(r1, r2, output_dir, log_pathway, vsearch, threads):
+    """Merge overlapping forward/reverse pairs with VSEARCH."""
     base = os.path.basename(r1).replace('_trimmed.fastq.gz', '').replace('_R1','')
-    out = os.path.join(output_dir, base)
-    # SRA's variable-length, adapter-trimmed reads trigger a PEAR 0.9.11
-    # empirical-frequency crash.  PEAR's documented -e option keeps the
-    # default assembly algorithm while using uniform base frequencies.
-    command = [pear, '-f', r1, '-r', r2, '-o', out, '-v', '10', '-m', '700',
-               '-n', '50', '-u', '1', '-e', '-j', str(threads)]
+    assembled = os.path.join(output_dir, f"{base}.assembled.fastq")
+    command = [vsearch, '--fastq_mergepairs', r1, '--reverse', r2,
+               '--fastqout', assembled, '--fastq_minovlen', '10',
+               '--fastq_maxmergelen', '700', '--fastq_minmergelen', '50',
+               '--threads', str(threads)]
     run_logged(command, log_pathway)
     return subprocess.list2cmdline(command)
 
@@ -102,7 +99,7 @@ def main(args):
     if args.threads < 1:
         raise ValueError('--threads must be at least 1')
     fastqc = resolve_executable(args.fastqc)
-    pear = resolve_executable(args.pear)
+    vsearch = resolve_executable(args.vsearch)
     cutadapt = None if args.notrim else resolve_executable(args.cutadapt)
 
     # Create log file with current date and time in its name
@@ -130,8 +127,8 @@ def main(args):
         shutil.copy2(args.R2, trimmed_r2)
         trim_args = "Trimming skipped due to --notrim flag"
     
-    # Call "PEAR" Paired End reAd mergeR to consolidate forward R1 & reverse R2 reads
-    merge_args = call_pear(trimmed_r1, trimmed_r2, out_dir, log_path, pear, args.threads)
+    # Merge overlapping mates into one read for IgBLAST annotation.
+    merge_args = call_vsearch(trimmed_r1, trimmed_r2, out_dir, log_path, vsearch, args.threads)
 
     # Determine base name for the assembled file
     base = os.path.basename(trimmed_r1).replace('_trimmed.fastq.gz', '').replace('_R1','')
