@@ -49,6 +49,19 @@ count and file checksums are recorded in `data/ferret_demo/MANIFEST.json`.
 Run each command from the repository root. Outputs are written beside the demo
 inputs and are ignored by Git.
 
+### Run everything with a shell script
+
+After you have worked through the individual steps below, inspect
+`scripts/run_demo.sh` to see how a shell script can call each Python program
+in sequence. Run the complete demonstration with:
+
+```bash
+bash scripts/run_demo.sh
+```
+
+The script stops at the first error and writes the same outputs as the
+individual commands, including the three plots.
+
 ### 1. Quality-check, trim, and merge paired reads
 
 ```bash
