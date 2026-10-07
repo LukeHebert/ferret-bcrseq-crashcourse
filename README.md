@@ -28,15 +28,6 @@ These instructions assume that you are logged in to your GitHub account.
 5. When the command reports `Workshop environment and 5,000-pair demo data:
    OK`, continue with the workflow below.
 
-The environment contains FastQC, VSEARCH, cutadapt, Java, Python packages, and
-IgBLAST 1.21.0 with the workshop's ferret reference overlay. You do not need
-to install software on your own computer.
-
-This public template uses VSEARCH for paired-read merging. PEAR is not bundled:
-its academic download terms require registration and restrict redistribution and
-pipeline integration. VSEARCH creates the same assembled-FASTQ handoff used by
-the rest of this workshop; merger-specific output counts may differ from PEAR.
-
 ## What is in the demo data?
 
 `data/ferret_demo/ferret_demo_R1.fastq.gz` and
