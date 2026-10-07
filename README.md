@@ -1,21 +1,32 @@
 # Ferret BCR-seq crashcourse
 
-This 90-minute, command-line workshop follows a small paired-end ferret BCR
-dataset through quality control, read merging, IgBLAST annotation, sequence
-collapse, and clonal clustering. The 5,000 read pairs are a teaching sample,
-not a biologically representative dataset.
+This command-line crashcourse follows a 5,000-pair subset of μ-isotype-specific
+ferret bulk BCR-seq paired-end reads through quality control, read merging,
+IgBLAST annotation, sequence collapse, and clonal clustering. This teaching
+sample is not intended for biological inference.
 
-## Start a Codespace
+## Start your own Codespace
 
-1. On GitHub, select **Use this template** and create your own repository.
-2. In that repository select **Code**, open the **Codespaces** tab, then select
-   **Create codespace on main**. Choose the default two-core machine.
-3. Wait for the setup notification. The container installs all tools and runs
+These instructions assume that you are logged in to your GitHub account.
+
+1. On this repository's GitHub page, click **Use this template** near the
+   upper-right, above the file list. In its menu, click **Create a new
+   repository**. Do not use the green **Code** button yet.
+2. On the next page, choose your personal GitHub account as the owner, give the
+   repository a name, and click **Create repository**. You are now viewing
+   your own copy of the workshop.
+3. In your copy, click the green **Code** button, select the **Codespaces**
+   tab, then click **Create codespace on main**. Choose the default two-core
+   machine.
+4. Wait for the setup notification. The container installs all tools and runs
    `make verify` automatically. In the terminal, run it again at any time:
 
    ```bash
    make verify
    ```
+
+5. When the command reports `Workshop environment and 5,000-pair demo data:
+   OK`, continue with the workflow below.
 
 The environment contains FastQC, VSEARCH, cutadapt, Java, Python packages, and
 IgBLAST 1.21.0 with the workshop's ferret reference overlay. You do not need
@@ -28,20 +39,10 @@ the rest of this workshop; merger-specific output counts may differ from PEAR.
 
 ## What is in the demo data?
 
-`data/ferret_demo/ferret_demo_R1.fastq.gz` and `_R2.fastq.gz` are a seeded,
-uniform 5,000-pair selection from public SRA run `SRR33336518`. Its source
-export had identical mate headers, so the teaching files append standard `/1`
-and `/2` suffixes for conventional paired-read compatibility. The pair count, seed, source export
-command, and checksums are recorded in
-`data/ferret_demo/MANIFEST.json`.
-
-The original full FASTQs are intentionally not in this repository. To recreate
-the sample after downloading `SRR33336518_1.fastq` and `_2.fastq` with
-`fasterq-dump --split-files`, run:
-
-```bash
-python3 scripts/build_demo_data.py SRR33336518_1.fastq SRR33336518_2.fastq
-```
+`data/ferret_demo/ferret_demo_R1.fastq.gz` and
+`data/ferret_demo/ferret_demo_R2.fastq.gz` contain 5,000 paired forward and
+reverse reads from a μ-isotype-specific ferret bulk BCR-seq dataset. The pair
+count and file checksums are recorded in `data/ferret_demo/MANIFEST.json`.
 
 ## Run the workflow
 
@@ -81,7 +82,7 @@ python workflows/bcrseq_transcript/filter_collapse.py \
 
 The `_filtered.tsv` output retains functional sequences observed at least once;
 `nt_seq_count` records how many identical nucleotide reads were collapsed. A
-threshold of one is intentional here: this small, uniform teaching subset did
+threshold of one is intentional here: this small teaching subset did
 not retain repeated functional nucleotide reads at threshold two.
 
 ### 4. Cluster related heavy-chain sequences
