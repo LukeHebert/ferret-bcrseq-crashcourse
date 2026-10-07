@@ -95,3 +95,47 @@ python workflows/bcrseq_transcript/gupta_cluster.py \
 The final `_clustered.tsv` adds `ClusterID`. The `clustering/` directory
 contains the selected threshold, a log, and a distance-to-nearest diagnostic
 plot. Interpret cluster IDs only within this small demonstration sample.
+
+## Visualize the results
+
+These commands create PNG figures and tab-separated tables in
+`data/ferret_demo/plots/`. Each bar chart is ordered from the largest value to
+the smallest.
+
+### V-gene usage among lineages
+
+```bash
+python scripts/plot_lineage_v_usage.py \
+  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered_clustered.tsv \
+  --output-dir data/ferret_demo/plots
+```
+
+This counts each `ClusterID` once and reports V genes without allele suffixes.
+
+### CDRH3 amino-acid diversity within lineages
+
+```bash
+python scripts/plot_cluster_cdr3_diversity.py \
+  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered_clustered.tsv \
+  --output-dir data/ferret_demo/plots
+```
+
+The default figure shows the 30 lineages with the most unique CDRH3 amino-acid
+sequences. Add `--top-n 0` to plot every lineage.
+
+### Processing and diversity dashboard
+
+```bash
+python scripts/plot_processing_summary.py \
+  --raw-r1 data/ferret_demo/ferret_demo_R1.fastq.gz \
+  --merged-fastq data/ferret_demo/ferret_demo.assembled.fastq \
+  --annotation-tsv data/ferret_demo/ferret_demo.assembled_IgBLAST.tsv \
+  --filtered-tsv data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv \
+  --clustered-tsv data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered_clustered.tsv \
+  --filter-log-dir data/ferret_demo/filter_collapse \
+  --output-dir data/ferret_demo/plots
+```
+
+The left panel shows raw, merged, annotated, and each logged filtering or
+collapse count. The right panel summarizes final unique nucleotide sequences,
+unique CDRH3 amino-acid sequences, and ClusterID lineages.

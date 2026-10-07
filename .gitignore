@@ -29,3 +29,4 @@ data/ferret_demo/*.assembled.fastq
 data/ferret_demo/*_IgBLAST.tsv
 data/ferret_demo/*_filtered.tsv
 data/ferret_demo/*_clustered.tsv
+data/ferret_demo/plots/
