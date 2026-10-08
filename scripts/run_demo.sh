@@ -19,7 +19,7 @@ python3 workflows/bcrseq_transcript/filter_collapse.py \
   data/ferret_demo/ferret_demo.assembled_IgBLAST.tsv --threshold 1
 
 python3 workflows/bcrseq_transcript/gupta_cluster.py \
-  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --threshold 1
+  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --auto_threshold
 
 python3 scripts/plot_lineage_v_usage.py \
   data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered_clustered.tsv \

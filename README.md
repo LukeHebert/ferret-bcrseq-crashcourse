@@ -132,15 +132,14 @@ python3 -m http.server 8000 --directory data/ferret_demo/filter_collapse
 
 ```bash
 python workflows/bcrseq_transcript/gupta_cluster.py \
-  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --threshold 1
+  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --auto_threshold
 ```
 
 The final `_clustered.tsv` adds `ClusterID`. The `clustering/` directory
-contains a log recording the explicit one-amino-acid-mismatch threshold used
-for this teaching dataset. Interpret cluster IDs only within this small
-demonstration sample.
+contains the selected threshold, a log, and a distance-to-nearest diagnostic
+plot. Interpret cluster IDs only within this small demonstration sample.
 
-To view the clustering log in a browser, run:
+To view the distance-to-nearest plot and clustering log in a browser, run:
 
 ```bash
 python3 -m http.server 8000 --directory data/ferret_demo/clustering
