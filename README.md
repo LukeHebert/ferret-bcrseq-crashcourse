@@ -59,15 +59,11 @@ inputs and are ignored by Git.
 ### Run everything with a shell script
 
 After you have worked through the individual steps below, inspect
-`scripts/run_demo.sh` to see how a shell script can call each Python program
-in sequence. `scripts/run_demo_literal.sh` contains the same workflow as a
-plain, literal list of the commands shown below. Run either complete
-demonstration with:
+`scripts/run_demo.sh` to see the same plain, literal list of Python commands
+shown below in a shell script. Run the complete demonstration with:
 
 ```bash
 bash scripts/run_demo.sh
-# or
-bash scripts/run_demo_literal.sh
 ```
 
 The script stops at the first error and writes the same outputs as the
@@ -136,14 +132,15 @@ python3 -m http.server 8000 --directory data/ferret_demo/filter_collapse
 
 ```bash
 python workflows/bcrseq_transcript/gupta_cluster.py \
-  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --auto_threshold
+  data/ferret_demo/ferret_demo.assembled_IgBLAST_filtered.tsv --threshold 1
 ```
 
 The final `_clustered.tsv` adds `ClusterID`. The `clustering/` directory
-contains the selected threshold, a log, and a distance-to-nearest diagnostic
-plot. Interpret cluster IDs only within this small demonstration sample.
+contains a log recording the explicit one-amino-acid-mismatch threshold used
+for this teaching dataset. Interpret cluster IDs only within this small
+demonstration sample.
 
-To view the distance-to-nearest plot and clustering log in a browser, run:
+To view the clustering log in a browser, run:
 
 ```bash
 python3 -m http.server 8000 --directory data/ferret_demo/clustering

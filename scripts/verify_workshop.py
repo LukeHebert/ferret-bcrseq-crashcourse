@@ -79,7 +79,6 @@ def check_data() -> None:
         assert categories == sampling["categories"], "Selection category counts mismatch"
     curation = manifest.get("curation")
     if isinstance(curation, dict):
-        assert curation["threshold_method"] == "kde_valley", "Curation did not identify a KDE valley"
         lineages = curation["selected_lineages"]
         assert len(lineages) == 20, "Expected 20 selected full-data lineages"
         assert all(
