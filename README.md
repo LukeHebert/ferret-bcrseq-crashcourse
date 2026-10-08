@@ -8,8 +8,7 @@ sample is not intended for biological inference.
 ## Optional: discard an older workshop copy and start fresh
 
 Use these steps only if you made an earlier personal copy of this workshop and
-do not need any changes in it. Deleting a repository permanently removes its
-contents, including unpushed work; do not delete this template repository.
+want to replace it with a fresh copy.
 
 1. First, visit [your Codespaces](https://github.com/codespaces). Find the
    Codespace for the old workshop copy, click its **...** menu, and choose
