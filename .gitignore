@@ -26,6 +26,8 @@ data/ferret_demo/identify_genes/
 data/ferret_demo/filter_collapse/
 data/ferret_demo/clustering/
 data/ferret_demo/*.assembled.fastq
+data/ferret_demo/ferret_demo_R1.fastq
+data/ferret_demo/ferret_demo_R2.fastq
 data/ferret_demo/*_IgBLAST.tsv
 data/ferret_demo/*_filtered.tsv
 data/ferret_demo/*_clustered.tsv

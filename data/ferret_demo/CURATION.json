@@ -1,0 +1,199 @@
+{
+  "annotation_rows": 427063,
+  "functional_unique_nt": 359564,
+  "unique_cdr3_aa": 292606,
+  "nearest_neighbor_values": 292139,
+  "nearest_neighbor_histogram": {
+    "1": 47421,
+    "2": 48080,
+    "3": 58698,
+    "4": 52518,
+    "5": 36167,
+    "6": 21687,
+    "7": 11821,
+    "8": 6700,
+    "9": 3592,
+    "10": 2228,
+    "11": 1221,
+    "12": 721,
+    "13": 461,
+    "14": 293,
+    "15": 212,
+    "16": 128,
+    "17": 81,
+    "18": 49,
+    "19": 32,
+    "20": 19,
+    "21": 3,
+    "22": 3,
+    "23": 2,
+    "27": 2
+  },
+  "threshold": 4,
+  "threshold_method": "kde_valley",
+  "selected_lineages": [
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 11,
+      "component": 76901,
+      "distinct_cdr3_aa": 4450,
+      "unique_nt": 5985
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 12,
+      "component": 24819,
+      "distinct_cdr3_aa": 4123,
+      "unique_nt": 4719
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 12,
+      "component": 77041,
+      "distinct_cdr3_aa": 4020,
+      "unique_nt": 5232
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 11,
+      "component": 24604,
+      "distinct_cdr3_aa": 3918,
+      "unique_nt": 4559
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 13,
+      "component": 25137,
+      "distinct_cdr3_aa": 3666,
+      "unique_nt": 4140
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 10,
+      "component": 76837,
+      "distinct_cdr3_aa": 3147,
+      "unique_nt": 4206
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 10,
+      "component": 24515,
+      "distinct_cdr3_aa": 3031,
+      "unique_nt": 3546
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 13,
+      "component": 77297,
+      "distinct_cdr3_aa": 3015,
+      "unique_nt": 3861
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 14,
+      "component": 25668,
+      "distinct_cdr3_aa": 2835,
+      "unique_nt": 3175
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 14,
+      "component": 77687,
+      "distinct_cdr3_aa": 2418,
+      "unique_nt": 3056
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 9,
+      "component": 24487,
+      "distinct_cdr3_aa": 1922,
+      "unique_nt": 2310
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 9,
+      "component": 76811,
+      "distinct_cdr3_aa": 1748,
+      "unique_nt": 2497
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 15,
+      "component": 26600,
+      "distinct_cdr3_aa": 1725,
+      "unique_nt": 1938
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ6*01",
+      "cdr3_aa_length": 11,
+      "component": 81745,
+      "distinct_cdr3_aa": 1538,
+      "unique_nt": 2066
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ6*01",
+      "cdr3_aa_length": 11,
+      "component": 32467,
+      "distinct_cdr3_aa": 1469,
+      "unique_nt": 1675
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ6*01",
+      "cdr3_aa_length": 10,
+      "component": 32418,
+      "distinct_cdr3_aa": 1443,
+      "unique_nt": 1665
+    },
+    {
+      "v_gene": "IGHV4-2*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 15,
+      "component": 78307,
+      "distinct_cdr3_aa": 1302,
+      "unique_nt": 1652
+    },
+    {
+      "v_gene": "IGHV3-28*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 12,
+      "component": 38869,
+      "distinct_cdr3_aa": 1286,
+      "unique_nt": 1530
+    },
+    {
+      "v_gene": "IGHV3-28*01",
+      "j_gene": "IGHJ4*01",
+      "cdr3_aa_length": 11,
+      "component": 38703,
+      "distinct_cdr3_aa": 1283,
+      "unique_nt": 1502
+    },
+    {
+      "v_gene": "IGHV3-20*01",
+      "j_gene": "IGHJ6*01",
+      "cdr3_aa_length": 12,
+      "component": 32617,
+      "distinct_cdr3_aa": 1210,
+      "unique_nt": 1372
+    }
+  ],
+  "enriched_pairs": 3000,
+  "background_pairs": 2000,
+  "total_pairs": 5000
+}

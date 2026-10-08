@@ -5,6 +5,23 @@ ferret bulk BCR-seq paired-end reads through quality control, read merging,
 IgBLAST annotation, sequence collapse, and clonal clustering. This teaching
 sample is not intended for biological inference.
 
+## Optional: discard an older workshop copy and start fresh
+
+Use these steps only if you made an earlier personal copy of this workshop and
+do not need any changes in it. Deleting a repository permanently removes its
+contents, including unpushed work; do not delete this template repository.
+
+1. First, visit [your Codespaces](https://github.com/codespaces). Find the
+   Codespace for the old workshop copy, click its **...** menu, and choose
+   **Delete**. This removes its stored environment as well as avoiding future
+   Codespaces storage use.
+2. Open the old personal workshop repository on GitHub. Select **Settings**,
+   remain on **General**, scroll to **Danger Zone**, and choose **Delete this
+   repository**. Follow GitHub's confirmation prompts and type the repository
+   name when asked.
+3. Return to this template repository and follow the next section to create a
+   new, up-to-date personal copy and Codespace.
+
 ## Start your own Codespace
 
 These instructions assume that you are logged in to your GitHub account.
@@ -44,10 +61,14 @@ inputs and are ignored by Git.
 
 After you have worked through the individual steps below, inspect
 `scripts/run_demo.sh` to see how a shell script can call each Python program
-in sequence. Run the complete demonstration with:
+in sequence. `scripts/run_demo_literal.sh` contains the same workflow as a
+plain, literal list of the commands shown below. Run either complete
+demonstration with:
 
 ```bash
 bash scripts/run_demo.sh
+# or
+bash scripts/run_demo_literal.sh
 ```
 
 The script stops at the first error and writes the same outputs as the
@@ -65,6 +86,17 @@ python workflows/bcrseq_transcript/trim_merge.py \
 Inspect `data/ferret_demo/trim_merge/` for FastQC reports and the VSEARCH merge
 log. The main output is `data/ferret_demo/ferret_demo.assembled.fastq`.
 
+To view the FastQC HTML reports in your browser, run this in a separate
+terminal and leave it running:
+
+```bash
+python3 -m http.server 8000 --directory data/ferret_demo/trim_merge
+```
+
+Open the **Ports** tab, find port 8000, and click the globe/open-in-browser
+icon. Stop the server with `Ctrl+C` before reusing port 8000 for another
+directory.
+
 ### 2. Annotate assembled reads with IgBLAST
 
 ```bash
@@ -77,6 +109,12 @@ This creates an AIRR-format table,
 `data/ferret_demo/ferret_demo.assembled_IgBLAST.tsv`. Read the mapping log in
 `data/ferret_demo/identify_genes/` to see the exact IgBLAST command.
 
+To browse that log through the same Codespaces browser route, run:
+
+```bash
+python3 -m http.server 8000 --directory data/ferret_demo/identify_genes
+```
+
 ### 3. Filter nonfunctional reads and collapse identical sequences
 
 ```bash
@@ -85,9 +123,15 @@ python workflows/bcrseq_transcript/filter_collapse.py \
 ```
 
 The `_filtered.tsv` output retains functional sequences observed at least once;
-`nt_seq_count` records how many identical nucleotide reads were collapsed. A
-threshold of one is intentional here: this small teaching subset did
-not retain repeated functional nucleotide reads at threshold two.
+`nt_seq_count` records how many identical nucleotide reads were collapsed.
+This teaching workflow uses a threshold of one so that every retained
+functional nucleotide sequence is available for the clustering demonstration.
+
+To view the filtering log in a browser, run:
+
+```bash
+python3 -m http.server 8000 --directory data/ferret_demo/filter_collapse
+```
 
 ### 4. Cluster related heavy-chain sequences
 
@@ -99,6 +143,12 @@ python workflows/bcrseq_transcript/gupta_cluster.py \
 The final `_clustered.tsv` adds `ClusterID`. The `clustering/` directory
 contains the selected threshold, a log, and a distance-to-nearest diagnostic
 plot. Interpret cluster IDs only within this small demonstration sample.
+
+To view the distance-to-nearest plot and clustering log in a browser, run:
+
+```bash
+python3 -m http.server 8000 --directory data/ferret_demo/clustering
+```
 
 ## Visualize the results
 
@@ -143,3 +193,9 @@ python scripts/plot_processing_summary.py \
 The left panel shows raw, merged, annotated, and each logged filtering or
 collapse count. The right panel summarizes final unique nucleotide sequences,
 unique CDRH3 amino-acid sequences, and ClusterID lineages.
+
+To view all three final PNG figures in a browser, run:
+
+```bash
+python3 -m http.server 8000 --directory data/ferret_demo/plots
+```

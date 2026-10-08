@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import gzip
+from io import BytesIO
 import re
 from pathlib import Path
 
@@ -12,6 +13,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 
+import matplotlib.pyplot as plt
 import pandas as pd
 from plotnine import aes, coord_flip, geom_col, ggplot, labs, theme, theme_minimal
 
@@ -155,8 +157,27 @@ def write_outputs(summary: pd.DataFrame, output_dir: Path) -> tuple[Path, Path]:
     summary.to_csv(tsv_path, sep="\t", index=False)
     processing = horizontal_bar_plot(summary[summary["panel"] == "Processing"], "Read processing")
     diversity = horizontal_bar_plot(summary[summary["panel"] == "Final diversity"], "Final repertoire diversity")
-    dashboard = (processing | diversity) + theme(figure_size=(18, 6))
-    dashboard.save(str(png_path), dpi=300)
+    try:
+        # Plotnine 0.15+ supports native plot composition.
+        dashboard = (processing | diversity) + theme(figure_size=(18, 6))
+        dashboard.save(str(png_path), dpi=300)
+    except TypeError:
+        # Each panel remains a Plotnine plot. Matplotlib only arranges the
+        # rendered panels for older local Plotnine installations.
+        images = []
+        for panel in (processing, diversity):
+            figure = panel.draw()
+            buffer = BytesIO()
+            figure.savefig(buffer, format="png", dpi=300, bbox_inches="tight")
+            plt.close(figure)
+            buffer.seek(0)
+            images.append(plt.imread(buffer))
+        figure, axes = plt.subplots(1, 2, figsize=(18, 6))
+        for axis, image in zip(axes, images, strict=True):
+            axis.imshow(image)
+            axis.axis("off")
+        figure.savefig(png_path, dpi=300, bbox_inches="tight")
+        plt.close(figure)
     return png_path, tsv_path
 
 

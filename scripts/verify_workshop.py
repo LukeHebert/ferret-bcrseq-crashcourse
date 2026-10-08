@@ -11,6 +11,7 @@ import os
 import shutil
 import subprocess
 import sys
+import csv
 from itertools import zip_longest
 from pathlib import Path
 
@@ -62,7 +63,30 @@ def check_environment() -> None:
 def check_data() -> None:
     manifest = json.loads((DATA / "MANIFEST.json").read_text())
     assert manifest["selected_pairs"] == 5000
+    sampling = manifest.get("sampling")
+    selection_spots: set[str] | None = None
+    if isinstance(sampling, dict):
+        selection_path = DATA / sampling["selection_file"]
+        with selection_path.open(newline="") as handle:
+            selection_rows = list(csv.DictReader(handle, delimiter="\t"))
+        selection_spots = {row["spot_id"] for row in selection_rows}
+        assert len(selection_spots) == len(selection_rows) == 5000, "Invalid selected-spot list"
+        assert sha256(selection_path) == sampling["selection_file_sha256"], "Selection-list checksum mismatch"
+        categories: dict[str, int] = {}
+        for row in selection_rows:
+            category = row.get("category", "selected") or "selected"
+            categories[category] = categories.get(category, 0) + 1
+        assert categories == sampling["categories"], "Selection category counts mismatch"
+    curation = manifest.get("curation")
+    if isinstance(curation, dict):
+        assert curation["threshold_method"] == "kde_valley", "Curation did not identify a KDE valley"
+        lineages = curation["selected_lineages"]
+        assert len(lineages) == 20, "Expected 20 selected full-data lineages"
+        assert all(
+            lineage["distinct_cdr3_aa"] >= 10 for lineage in lineages
+        ), "Selected lineage has fewer than 10 distinct CDRH3 amino-acid members"
     pair_count = 0
+    observed_spots: set[str] = set()
     for left, right in zip_longest(
         fastq_records(DATA / "ferret_demo_R1.fastq.gz"),
         fastq_records(DATA / "ferret_demo_R2.fastq.gz"),
@@ -71,8 +95,11 @@ def check_data() -> None:
         assert pair_key(left[0], "/1") == pair_key(right[0], "/2"), (
             f"Header mismatch at pair {pair_count + 1}"
         )
+        observed_spots.add(pair_key(left[0], "/1")[1:])
         pair_count += 1
     assert pair_count == 5000
+    if selection_spots is not None:
+        assert observed_spots == selection_spots, "FASTQ records differ from selected-spot list"
     for name, details in manifest["files"].items():
         assert sha256(DATA / name) == details["sha256"], f"Checksum mismatch: {name}"
 
